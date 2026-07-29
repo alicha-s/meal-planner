@@ -1,5 +1,3 @@
-from create_user import User
-
 class CALculator:
     def __init__(self,user):
         self.user = user
@@ -24,6 +22,7 @@ class CALculator:
     
 
     # DCD: Daily Calorie Deficiet, TC: Target Calorie
+    @property
     def weightloss_tdee(self):
         DCD = (7700*self.user.target)/7
         TC = self.maintenace_tdee - DCD
@@ -32,7 +31,7 @@ class CALculator:
             print(f"{self.user.target} per week is not sustainable. Target calories is too low.")
         return TC
 
-
+    @property
     def weightgain_tdee(self):
         DCD = (7700*self.user.target)/7
         TC = self.maintenace_tdee + DCD

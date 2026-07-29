@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "email": "sangkajanalicha@gmail.com",
+      "user_info": {
+        "name": "Ink",
+        "age": 27,
+        "weight": 68,
+        "height": 151,
+        "sex": "female",
+        "activity": 2,
+        "goal": 1,
+        "target": 0.3
+      }
+    }
+  ]
+}
