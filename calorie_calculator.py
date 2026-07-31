@@ -10,7 +10,7 @@ class CALculator:
             return round((10*self.user.weight)+(6.25*self.user.height)-(5*self.user.age)-161)
 
     @property 
-    def maintenace_tdee(self):
+    def maintenance_tdee(self):
         if self.user.activity == 1:
             return round(self.bmr * 1.2)
         elif self.user.activity == 2:
@@ -25,8 +25,8 @@ class CALculator:
     @property
     def weightloss_tdee(self):
         DCD = (7700*self.user.target)/7
-        TC = self.maintenace_tdee - DCD
-        percentage = (DCD/self.maintenace_tdee)*100
+        TC = self.maintenance_tdee - DCD
+        percentage = (DCD/self.maintenance_tdee)*100
         if percentage > 20:
             print(f"{self.user.target} per week is not sustainable. Target calories is too low.")
         return TC
@@ -34,8 +34,8 @@ class CALculator:
     @property
     def weightgain_tdee(self):
         DCD = (7700*self.user.target)/7
-        TC = self.maintenace_tdee + DCD
-        percentage = (DCD/self.maintenace_tdee)*100
+        TC = self.maintenance_tdee + DCD
+        percentage = (DCD/self.maintenance_tdee)*100
         if percentage > 20:
             print(f"{self.user.target} per week is not sustainable. Target calories is too high.")
         return TC

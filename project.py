@@ -1,4 +1,4 @@
-import sys,os,ast
+import sys,os,subprocess,keyboard
 from create_user import User
 from calorie_calculator import CALculator
 from user_manager import UserManager
@@ -16,7 +16,6 @@ def get_user_data():
     for k,v in user_input.items():
         user_input[k][1] = input(v[1])
     return user_input
-
 
 def check_validation(user_input):  
     for k,v in user_input.items():
@@ -45,18 +44,30 @@ def check_validation(user_input):
                 raise ValueError("Invalid Input. Try agian.")
     return user_input
 
-    
 def choose_function(calculator): 
     menu = {"1": calculator.bmr,
-                 "2": calculator.maintenace_tdee, 
-                 "3": calculator.weightloss_tdee,
-                 "4": calculator.weightgain_tdee}
+            "2": calculator.maintenance_tdee, 
+            "3": calculator.weightloss_tdee,
+            "4": calculator.weightgain_tdee,
+            "5": sys.exit}
     print("1. get bmr")
     print("2. get maintenance TDEE")
     print("3. get weight loss TDEE")
     print("4. get weight gain TDEE")
+    print("5. exit")
     user_input = input("Please select menu: ")
-    return menu[user_input]
+    clear_screen()
+    if user_input == "5":
+        menu[user_input](0)
+    else:
+        return menu[user_input]
+
+def clear_screen():
+    if os.name == "nt":
+        command = "cls"
+    else:
+        command = "clear"
+    subprocess.run(command, shell=True)
 
 def main(): 
     User_Manager = UserManager()
@@ -75,11 +86,14 @@ def main():
             
     elif found_user:
         userdata = User_Manager.get_user_info(email)
-        valid_userdata = ast.literal_eval(userdata)
-        user = User(**valid_userdata)
+        user = User(**userdata)
         calculator = CALculator(user)
 
-    print(choose_function(calculator))
+    while True:
+        clear_screen()
+        print(choose_function(calculator))
+        print("Press 'Back Space' to go back")
+        keyboard.wait("backspace")
 
 
 if __name__ == "__main__":
